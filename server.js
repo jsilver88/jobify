@@ -1,6 +1,9 @@
 import express from 'express'
 import notFoundMiddleware from './middleware/not-found.js'
 import errorHandlerMiddleware from './middleware/error-handler.js'
+import dotenv from 'dotenv'
+import connectDB from './db/connect.js'
+dotenv.config()
 const app = express()
 
 app.get('/', (req, res) => {
@@ -12,4 +15,15 @@ app.use(errorHandlerMiddleware)
 
 const PORT = process.env.PORT || 5500
 
-app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
+const start = async () => {
+  try {
+    await connectDB(process.env.MONGODB_URI)
+    console.log('MongoDB connected...')
+    app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
+  } catch (error) {
+    console.error(error.message)
+    process.exit(1)
+  }
+}
+
+start()
