@@ -12,7 +12,11 @@ const app = express()
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send('Welcome to my server!')
+  res.send('WELCOME')
+})
+
+app.get('/api/v1', (req, res) => {
+  res.json({ msg: 'API working!' })
 })
 
 app.use('/api/v1/auth', authRouter)
@@ -21,7 +25,7 @@ app.use('/api/v1/jobs', jobsRouter)
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
 
-const PORT = process.env.PORT || 5500
+const PORT = process.env.PORT || 5000
 
 const start = async () => {
   try {
