@@ -1,10 +1,35 @@
-import { Landing, Register, Dashboard, Error } from './pages'
+import { Landing, Register, Error } from './pages'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import {
+  Addjob,
+  Alljobs,
+  Profile,
+  Stats,
+  SharedLayout,
+} from './pages/dashboard'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Dashboard />,
+    element: <SharedLayout />,
+    children: [
+      {
+        index: true,
+        element: <Stats />,
+      },
+      {
+        path: 'all-jobs',
+        element: <Alljobs />,
+      },
+      {
+        path: 'add-job',
+        element: <Addjob />,
+      },
+      {
+        path: 'profile',
+        element: <Profile />,
+      },
+    ],
   },
   {
     path: '/register',
